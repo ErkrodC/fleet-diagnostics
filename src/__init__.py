@@ -1,0 +1,1 @@
+"""Fleet diagnostics application package."""
