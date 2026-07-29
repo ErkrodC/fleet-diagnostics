@@ -1,4 +1,4 @@
-![Fleet Diagnostics Dashboard](Fleet Diagnostics Dashboard.png)
+![Fleet Diagnostics Dashboard](Dashboard.png)
 
 # Fleet Diagnostics
 
