@@ -1,0 +1,7 @@
+.git
+.idea
+.junie
+.pytest_cache
+.venv
+**/__pycache__
+**/*.pyc
