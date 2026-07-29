@@ -28,9 +28,7 @@ def check_battery_temperature(
     ]
 
 
-def check_state_of_charge(
-    record: TelemetryRecord
-) -> list[DiagnosticFinding]:
+def check_state_of_charge(record: TelemetryRecord) -> list[DiagnosticFinding]:
     if record.state_of_charge_pct >= MIN_BATTERY_CHARGE_PCT:
         return []
 
@@ -42,22 +40,21 @@ def check_state_of_charge(
             message=(
                 f"Battery charge is {record.state_of_charge_pct:.1f}%; "
                 f"warning threshold is {MIN_BATTERY_CHARGE_PCT:.1f}%."
-            )
+            ),
         )
     ]
 
 
-def check_online_status(
-    record: TelemetryRecord
-) -> list[DiagnosticFinding]:
-    if record.is_online: return []
+def check_online_status(record: TelemetryRecord) -> list[DiagnosticFinding]:
+    if record.is_online:
+        return []
 
     return [
         DiagnosticFinding(
             asset_id=record.asset_id,
             code=CODE_ASSET_OFFLINE,
             severity=Severity.CRITICAL,
-            message=f"Asset {record.asset_id} is offline."
+            message=f"Asset {record.asset_id} is offline.",
         )
     ]
 

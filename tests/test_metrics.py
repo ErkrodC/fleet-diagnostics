@@ -47,6 +47,27 @@ class FleetMetricsTests(unittest.TestCase):
             'fleet_asset_online{asset_id="bess-002"} 0.0',
             output,
         )
+        self.assertIn(
+            (
+                'fleet_diagnostic_finding{asset_id="bess-002",'
+                'code="HIGH_BATTERY_TEMPERATURE",severity="critical"} 1.0'
+            ),
+            output,
+        )
+        self.assertIn(
+            (
+                'fleet_diagnostic_finding{asset_id="bess-002",'
+                'code="LOW_STATE_OF_CHARGE",severity="warning"} 1.0'
+            ),
+            output,
+        )
+        self.assertIn(
+            (
+                'fleet_diagnostic_finding{asset_id="bess-002",'
+                'code="ASSET_OFFLINE",severity="critical"} 1.0'
+            ),
+            output,
+        )
 
 
 if __name__ == "__main__":

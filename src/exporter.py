@@ -2,10 +2,9 @@ import argparse
 import time
 from pathlib import Path
 
-import prometheus_client
+from prometheus_client import start_http_server
 
 from src.metrics import FleetMetrics
-from src.models import TelemetryRecord
 from src.telemetry import load_telemetry
 
 
@@ -25,7 +24,6 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=8000,
         help="Port to serve the telemetry data on",
-        required=False
     )
 
     parser.add_argument(
@@ -33,20 +31,20 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=15,
         help="Interval in seconds between each update",
-        required=False
     )
 
     return parser.parse_args()
 
+
 def main() -> None:
     args = parse_args()
 
-    fleet_metrics: FleetMetrics = FleetMetrics()
-    prometheus_client.start_http_server(args.port)
+    fleet_metrics = FleetMetrics()
+    start_http_server(args.port)
 
     try:
         while True:
-            telemetry: list[TelemetryRecord] = load_telemetry(args.input_file)
+            telemetry = load_telemetry(args.input_file)
             fleet_metrics.update_telemetry(telemetry)
             time.sleep(args.interval)
     except KeyboardInterrupt:

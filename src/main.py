@@ -18,6 +18,7 @@ def parse_args() -> argparse.Namespace:
 
     return parser.parse_args()
 
+
 def main() -> None:
     args = parse_args()
     print(f"Reading telemetry from: {args.input_file}")
@@ -31,7 +32,10 @@ def main() -> None:
 
     print(f"Analyzed {len(records)} records: {len(findings)} findings.")
     for finding in findings:
-        print(f"[{finding.severity.value}] {finding.asset_id} {finding.code}: {finding.message}")
+        print(
+            f"[{finding.severity.value}] {finding.asset_id} "
+            f"{finding.code}: {finding.message}"
+        )
 
 
 if __name__ == "__main__":
